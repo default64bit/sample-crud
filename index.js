@@ -5,7 +5,12 @@ const PORT = 3005;
 let db = { last_id: 0, users: {} };
 
 const server = express();
-server.use(express.json());
+server.use((express.json()));
+server.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, PUT, DELETE, GET, OPTIONS");
+    next();
+});
 
 server.get("/user/:id", (req, res) => {
     // find the user
